@@ -1,0 +1,8 @@
+[package]
+name = "aoc-2020"
+version = "0.1.0"
+authors = ["Jonas Vander Vennet <jonas.vdv@hotmail.com>"]
+edition = "2018"
+
+[dependencies]
+structopt = "0.3.20"
