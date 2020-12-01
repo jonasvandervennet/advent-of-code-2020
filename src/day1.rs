@@ -1,4 +1,5 @@
 use crate::util::read_lines;
+use itertools::Itertools;
 
 fn get_2_values_with_sum_2020(values: &Vec<usize>) -> (usize, usize) {
     for (i, val) in values.iter().enumerate() {
@@ -11,17 +12,14 @@ fn get_2_values_with_sum_2020(values: &Vec<usize>) -> (usize, usize) {
     (0, 0)
 }
 
-fn get_3_values_with_sum_2020(values: &Vec<usize>) -> (usize, usize, usize) {
-    for (i, val) in values.iter().enumerate() {
-        for val2 in values[(i + 1)..].iter() {
-            for val3 in values[(i + 2)..].iter() {
-                if val + val2 + val3 == 2020 {
-                    return (*val, *val2, *val3);
-                }
-            }
-        }
-    }
-    (0, 0, 0)
+fn get_3_values_with_sum_2020(values: &Vec<usize>) -> usize {
+    // Another approach (using iterators), more readable probably
+    values
+        .iter()
+        .combinations(3)
+        .find(|v| v[0] + v[1] + v[2] == 2020)
+        .map(|v| v[0] * v[1] * v[2])
+        .unwrap()
 }
 
 fn get_input() -> Result<Vec<usize>, std::io::Error> {
@@ -69,11 +67,8 @@ pub fn main() {
     println!("PART 1: {}", part_1);
 
     // PART 2
-    let known_answer: usize = 4992931;
-    let part_2: usize = {
-        let values = get_3_values_with_sum_2020(&input);
-        values.0 * values.1 * values.2
-    };
+    let known_answer: usize = 244300320;
+    let part_2: usize = get_3_values_with_sum_2020(&input);
     if part_2 != known_answer {
         print!("INCORRECT || ")
     }
@@ -94,7 +89,6 @@ mod tests {
     #[test]
     fn test_example_2() {
         let input: Vec<usize> = vec![1721, 979, 366, 299, 675, 1456];
-        let values = get_3_values_with_sum_2020(&input);
-        assert_eq!(values.0 * values.1 *values.2, 241861950);
+        assert_eq!(get_3_values_with_sum_2020(&input), 241861950);
     }
 }
