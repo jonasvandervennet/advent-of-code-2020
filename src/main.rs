@@ -28,15 +28,18 @@ fn main() {
     let mains = [example::main]; //[day1::main];
 
     match args.day.as_str() {
-        "all" => for (day, main) in mains.iter().enumerate() {
-            print_day_header(day + 1);
-            main();
-            println!();
-        },
+        "all" => {
+            for (day, main) in mains.iter().enumerate() {
+                print_day_header(day + 1);
+                main();
+                println!();
+            }
+        }
         "example" => example::main(),
-     _ => {let day: usize = args.day.parse().unwrap();
-    print_day_header(day);
-    mains[day - 1]();         
+        _ => {
+            let day: usize = args.day.parse().unwrap();
+            print_day_header(day);
+            mains[day - 1]();
+        }
     }
-}
 }

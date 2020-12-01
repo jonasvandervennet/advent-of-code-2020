@@ -46,20 +46,27 @@ fn get_input() -> Result<Vec<usize>, std::io::Error> {
 }
 
 pub fn main() {
-	let input: Vec<usize> = match get_input() {
-		Ok(s) => s,
-		Err(e) => {eprintln!("ERR: {}", e); return}
-	};
+    let input: Vec<usize> = match get_input() {
+        Ok(s) => s,
+        Err(e) => {
+            eprintln!("ERR: {}", e);
+            return;
+        }
+    };
     // PART 1
     let known_answer: usize = 3330521;
     let part_1: usize = input.iter().map(|&i| calculate_fuel(i)).sum();
-    if part_1 != known_answer {print!("INCORRECT || ")}
+    if part_1 != known_answer {
+        print!("INCORRECT || ")
+    }
     println!("PART 1: {}", part_1);
 
     // PART 2
     let known_answer: usize = 4992931;
     let part_2: usize = input.iter().map(|&i| recurse_fuel(i)).sum();
-    if part_2 != known_answer {print!("INCORRECT || ")}
+    if part_2 != known_answer {
+        print!("INCORRECT || ")
+    }
     println!("PART 2: {}", part_2);
 }
 
@@ -85,10 +92,5 @@ mod tests {
     #[test]
     fn test_fuel_example_4() {
         assert_eq!(calculate_fuel(100756), 33583);
-    }
-
-    #[test]
-    fn test_fuel_example_5() {
-        assert_eq!(calculate_fuel(9992260), 3330521);
     }
 }
