@@ -7,7 +7,9 @@ fn verify_password(pass: &str, verify_value: bool) -> bool {
         if !pass.contains(field) {
             return false;
         }
-        if !verify_value {continue}
+        if !verify_value {
+            continue;
+        }
         let value: &str = pass.split(field).collect::<Vec<&str>>()[1]
             .split_whitespace()
             .collect::<Vec<&str>>()[0];
@@ -32,7 +34,9 @@ fn verify_password(pass: &str, verify_value: bool) -> bool {
                 }
             }
             &"hgt:" => {
-                if !value.contains("cm") && !value.contains("in") {return false;}
+                if !value.contains("cm") && !value.contains("in") {
+                    return false;
+                }
                 let height = value[..value.len() - 2].parse::<usize>().unwrap();
                 if &value[value.len() - 2..] == "in" {
                     if height < 59 || height > 76 {
@@ -51,7 +55,9 @@ fn verify_password(pass: &str, verify_value: bool) -> bool {
                 }
             }
             &"ecl:" => {
-                if !["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&value) {return false;}
+                if !["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&value) {
+                    return false;
+                }
             }
             &"pid:" => {
                 let re = Regex::new(r"^[0-9]{9}$").unwrap();
@@ -67,12 +73,13 @@ fn verify_password(pass: &str, verify_value: bool) -> bool {
 
 pub fn main() {
     let input = read_to_string("inputs/day4.txt").unwrap();
-    
+
     // PART 1
     let known_answer: usize = 264;
-    let part_1: usize = input.split("\r\n\r\n")  // empty lines (this probably depends on the operating system..)
-    .map(|line| if verify_password(line, false) { 1 } else { 0 })
-    .sum();
+    let part_1: usize = input
+        .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
+        .map(|line| if verify_password(line, false) { 1 } else { 0 })
+        .sum();
     if part_1 != known_answer {
         print!("INCORRECT || ")
     }
@@ -81,9 +88,9 @@ pub fn main() {
     // PART 2
     let known_answer: usize = 224;
     let part_2: usize = input
-    .split("\r\n\r\n")  // empty lines (this probably depends on the operating system..)
-    .map(|line| if verify_password(line, true) { 1 } else { 0 })
-    .sum();
+        .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
+        .map(|line| if verify_password(line, true) { 1 } else { 0 })
+        .sum();
     if part_2 != known_answer {
         print!("INCORRECT || ")
     }
@@ -96,7 +103,8 @@ mod tests {
 
     #[test]
     fn test_example_1() {
-        let input: &str = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm";
+        let input: &str =
+            "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\nbyr:1937 iyr:2017 cid:147 hgt:183cm";
         let valid: bool = verify_password(&input, false);
         assert_eq!(valid, true);
     }
@@ -108,7 +116,8 @@ mod tests {
     }
     #[test]
     fn test_example_3() {
-        let input: &str = "hcl:#ae17e1 iyr:2013\neyr:2024\necl:brn pid:760753108 byr:1931\nhgt:179cm";
+        let input: &str =
+            "hcl:#ae17e1 iyr:2013\neyr:2024\necl:brn pid:760753108 byr:1931\nhgt:179cm";
         let valid: bool = verify_password(&input, false);
         assert_eq!(valid, true);
     }
@@ -120,19 +129,22 @@ mod tests {
     }
     #[test]
     fn test_example_8() {
-        let input: &str = "eyr:1972 cid:100\nhcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926";
+        let input: &str =
+            "eyr:1972 cid:100\nhcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926";
         let valid: bool = verify_password(&input, true);
         assert_eq!(valid, false);
     }
     #[test]
     fn test_example_9() {
-        let input: &str = "iyr:2019\nhcl:#602927 eyr:1967 hgt:170cm\necl:grn pid:012533040 byr:1946";
+        let input: &str =
+            "iyr:2019\nhcl:#602927 eyr:1967 hgt:170cm\necl:grn pid:012533040 byr:1946";
         let valid: bool = verify_password(&input, true);
         assert_eq!(valid, false);
     }
     #[test]
     fn test_example_10() {
-        let input: &str = "hcl:dab227 iyr:2012\necl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277";
+        let input: &str =
+            "hcl:dab227 iyr:2012\necl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277";
         let valid: bool = verify_password(&input, true);
         assert_eq!(valid, false);
     }
@@ -150,13 +162,15 @@ mod tests {
     }
     #[test]
     fn test_example_13() {
-        let input: &str = "eyr:2029 ecl:blu cid:129 byr:1989\niyr:2014 pid:896056539 hcl:#a97842 hgt:165cm";
+        let input: &str =
+            "eyr:2029 ecl:blu cid:129 byr:1989\niyr:2014 pid:896056539 hcl:#a97842 hgt:165cm";
         let valid: bool = verify_password(&input, true);
         assert_eq!(valid, true);
     }
     #[test]
     fn test_example_14() {
-        let input: &str = "hcl:#888785\nhgt:164cm byr:2001 iyr:2015 cid:88\npid:545766238 ecl:hzl\neyr:2022";
+        let input: &str =
+            "hcl:#888785\nhgt:164cm byr:2001 iyr:2015 cid:88\npid:545766238 ecl:hzl\neyr:2022";
         let valid: bool = verify_password(&input, true);
         assert_eq!(valid, true);
     }

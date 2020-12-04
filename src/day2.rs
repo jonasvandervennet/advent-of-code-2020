@@ -44,7 +44,8 @@ fn verify_password_part2(input: &str) -> bool {
     };
     let password: &str = &input.split(':').collect::<Vec<&str>>()[1][1..];
 
-    (password.chars().nth(low-1).unwrap() == target) ^ (password.chars().nth(high-1).unwrap() == target)
+    (password.chars().nth(low - 1).unwrap() == target)
+        ^ (password.chars().nth(high - 1).unwrap() == target)
 }
 
 pub fn main() {
