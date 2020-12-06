@@ -1,5 +1,6 @@
-use crate::util::read_lines;
+use crate::util::{print_part_1, print_part_2, read_lines};
 use itertools::Itertools;
+use std::time::Instant;
 
 fn get_2_values_with_sum_2020(values: &Vec<usize>) -> (usize, usize) {
     for (i, val) in values.iter().enumerate() {
@@ -56,23 +57,21 @@ pub fn main() {
         }
     };
     // PART 1
+    let start = Instant::now();
     let known_answer: usize = 319531;
     let part_1: usize = {
         let values = get_2_values_with_sum_2020(&input);
         values.0 * values.1
     };
-    if part_1 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 1: {}", part_1);
+    let duration = start.elapsed();
+    print_part_1(part_1, known_answer, duration);
 
     // PART 2
+    let start = Instant::now();
     let known_answer: usize = 244300320;
     let part_2: usize = get_3_values_with_sum_2020(&input);
-    if part_2 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 2: {}", part_2);
+    let duration = start.elapsed();
+    print_part_2(part_2, known_answer, duration);
 }
 
 #[cfg(test)]

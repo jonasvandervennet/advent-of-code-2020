@@ -1,5 +1,7 @@
+use crate::util::{print_part_1, print_part_2};
 use regex::Regex;
 use std::fs::read_to_string;
+use std::time::Instant;
 
 fn verify_password(pass: &str, verify_value: bool) -> bool {
     let required_fields = ["byr:", "iyr:", "eyr:", "hgt:", "hcl:", "ecl:", "pid:"]; // doesn't include country id field
@@ -75,26 +77,24 @@ pub fn main() {
     let input = read_to_string("inputs/day4.txt").unwrap();
 
     // PART 1
+    let start = Instant::now();
     let known_answer: usize = 264;
     let part_1: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line| if verify_password(line, false) { 1 } else { 0 })
         .sum();
-    if part_1 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 1: {}", part_1);
+    let duration = start.elapsed();
+    print_part_1(part_1, known_answer, duration);
 
     // PART 2
+    let start = Instant::now();
     let known_answer: usize = 224;
     let part_2: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line| if verify_password(line, true) { 1 } else { 0 })
         .sum();
-    if part_2 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 2: {}", part_2);
+    let duration = start.elapsed();
+    print_part_2(part_2, known_answer, duration);
 }
 
 #[cfg(test)]

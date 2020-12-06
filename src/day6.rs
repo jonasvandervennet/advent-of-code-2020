@@ -1,5 +1,7 @@
+use crate::util::{print_part_1, print_part_2};
 use std::collections::HashSet;
 use std::fs::read_to_string;
+use std::time::Instant;
 
 fn get_unique_chars(answers: &str) -> HashSet<char> {
     let mut chars: HashSet<char> = HashSet::new();
@@ -34,26 +36,24 @@ pub fn main() {
     let input = read_to_string("inputs/day6.txt").unwrap();
 
     // PART 1
+    let start = Instant::now();
     let known_answer: usize = 6930;
     let part_1: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line_group| get_unique_chars(line_group).len())
         .sum();
-    if part_1 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 1: {}", part_1);
+    let duration = start.elapsed();
+    print_part_1(part_1, known_answer, duration);
 
     // PART 2
+    let start = Instant::now();
     let known_answer: usize = 3585;
     let part_2: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line_group| count_common_chars(line_group))
         .sum();
-    if part_2 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 2: {}", part_2);
+    let duration = start.elapsed();
+    print_part_2(part_2, known_answer, duration);
 }
 
 #[cfg(test)]

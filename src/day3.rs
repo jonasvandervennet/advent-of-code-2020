@@ -1,4 +1,6 @@
+use crate::util::{print_part_1, print_part_2};
 use std::fs::read_to_string;
+use std::time::Instant;
 
 fn count_trees_slope(map: &str, right: usize, down: usize) -> usize {
     let mut x: usize = 0; // current offset in line
@@ -22,24 +24,22 @@ fn count_trees_slope(map: &str, right: usize, down: usize) -> usize {
 pub fn main() {
     let map = read_to_string("inputs/day3.txt").unwrap();
     // PART 1
+    let start = Instant::now();
     let known_answer: usize = 252;
     let part_1: usize = count_trees_slope(&map, 3, 1);
-    if part_1 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 1: {}", part_1);
+    let duration = start.elapsed();
+    print_part_1(part_1, known_answer, duration);
 
     // PART 2
+    let start = Instant::now();
     let known_answer: usize = 2608962048;
     let part_2: usize = count_trees_slope(&map, 1, 1)
         * count_trees_slope(&map, 3, 1)
         * count_trees_slope(&map, 5, 1)
         * count_trees_slope(&map, 7, 1)
         * count_trees_slope(&map, 1, 2);
-    if part_2 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 2: {}", part_2);
+    let duration = start.elapsed();
+    print_part_2(part_2, known_answer, duration);
 }
 
 #[cfg(test)]

@@ -1,4 +1,6 @@
+use crate::util::{print_part_1, print_part_2};
 use std::fs::read_to_string;
+use std::time::Instant;
 
 // Seat is specified by a binary number
 // R and B are 1, L and F are 0.
@@ -39,21 +41,19 @@ pub fn main() {
     let mut seat_ids: Vec<usize> = input.lines().map(|line| seat_id(line)).collect();
 
     // PART 1
+    let start = Instant::now();
     let known_answer: usize = 963;
     let part_1: usize = seat_ids.iter().max().unwrap().to_owned();
-    if part_1 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 1: {}", part_1);
+    let duration = start.elapsed();
+    print_part_1(part_1, known_answer, duration);
 
     // PART 2
+    let start = Instant::now();
     let known_answer: usize = 592;
     seat_ids.sort();
     let part_2: usize = get_missing_seat_id(seat_ids);
-    if part_2 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 2: {}", part_2);
+    let duration = start.elapsed();
+    print_part_2(part_2, known_answer, duration);
 }
 
 #[cfg(test)]
