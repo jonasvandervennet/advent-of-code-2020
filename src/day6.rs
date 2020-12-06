@@ -1,14 +1,13 @@
+use std::collections::HashSet;
 use std::fs::read_to_string;
 
-// TODO: use a hashset for this solution.
-// I could get the lifetimes to work, but it would be a better solution
-fn get_unique_chars(answers: &str) -> Vec<char> {
-    let mut chars: Vec<char> = vec![];
+fn get_unique_chars(answers: &str) -> HashSet<char> {
+    let mut chars: HashSet<char> = HashSet::new();
 
     for answer in answers.lines() {
         for c in answer.chars() {
             if !chars.contains(&c) {
-                chars.push(c);
+                chars.insert(c);
             }
         }
     }
@@ -16,7 +15,7 @@ fn get_unique_chars(answers: &str) -> Vec<char> {
 }
 
 fn count_common_chars(answers: &str) -> usize {
-    let mut chars: Vec<char> = vec![];
+    let mut chars: HashSet<char> = HashSet::new();
 
     let mut first_anwser = true;
     for answer in answers.lines() {
