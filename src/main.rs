@@ -9,6 +9,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 mod example;
 mod infi;
@@ -42,6 +43,7 @@ fn main() {
         day5::main,
         day6::main,
         day7::main,
+        day8::main,
     ];
 
     match args.day.as_str() {
