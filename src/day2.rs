@@ -64,7 +64,7 @@ pub fn main() {
 
     // PART 2
     let start = Instant::now();
-    let known_answer= "670";
+    let known_answer = "670";
     let part_2: usize = input
         .lines()
         .map(|line| if verify_password_part2(line) { 1 } else { 0 })

@@ -1,9 +1,9 @@
 // An example implementation of an AoC challenge
 // (source: aoc 2019 day 1 )
 
+use crate::util::read_lines;
 use crate::util::{print_part_1, print_part_2};
 use std::time::Instant;
-use crate::util::read_lines;
 
 fn calculate_fuel(mass: usize) -> usize {
     // can be checked with a checked_sub(2).unwrap_or(0) too!
