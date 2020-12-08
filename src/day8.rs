@@ -3,7 +3,21 @@ use std::collections::HashSet;
 use std::fs::read_to_string;
 use std::time::Instant;
 
-fn run_program(instructions: &Vec<&str>) -> (bool, i32) {
+#[derive(Clone, Copy, PartialEq)]
+enum InstructionType {
+    ACC,
+    NOP,
+    JMP,
+    INVALID,
+}
+
+#[derive(Clone)]
+struct Instruction {
+    i_type: InstructionType,
+    arg: i32,
+}
+
+fn run_program(instructions: &Vec<Instruction>) -> (bool, i32) {
     let mut acc: i32 = 0;
     let mut i_pointer: usize = 0;
 
@@ -21,78 +35,92 @@ fn run_program(instructions: &Vec<&str>) -> (bool, i32) {
             seen_instruction_pointers.insert(i_pointer);
         }
 
-        let ins = instructions
+        let ins: &Instruction = instructions
             .iter()
             .nth(i_pointer)
             .expect("could not reach instruction");
-        let op: &str = &ins[0..3];
-        let arg: &i32 = &ins[4..].parse::<i32>().expect("could not parse argument");
 
-        match op {
-            "nop" => {
+        match ins.i_type {
+            InstructionType::NOP => {
                 i_pointer += 1;
             }
-            "acc" => {
-                acc += arg;
+            InstructionType::ACC => {
+                acc += ins.arg;
                 i_pointer += 1;
             }
-            "jmp" => {
+            InstructionType::JMP => {
                 let u_arg: usize;
-                if *arg >= 0 {
-                    u_arg = *arg as usize;
+                if ins.arg >= 0 {
+                    u_arg = ins.arg as usize;
                     i_pointer += u_arg;
                 } else {
-                    u_arg = -arg as usize;
+                    // add negative number to usize
+                    u_arg = -ins.arg as usize;
                     i_pointer -= u_arg;
                 }
             }
-            _ => {
+            InstructionType::INVALID => {
                 println!("unknown instruction. Exiting..");
-                break;
+                return (false, 0);
             }
         }
     }
-    (true, acc)
 }
 
-fn make_program_terminate(instructions: &Vec<&str>) -> (bool, i32) {
+fn make_program_terminate(instructions: &Vec<Instruction>) -> (bool, i32) {
+    let mut instructions = instructions.clone();
     for index in 0..instructions.len() {
-        let ins = instructions[index];
-        let op: &str = &ins[0..3];
-        if op == "acc" {
+        let ins = &instructions[index];
+        if ins.i_type == InstructionType::ACC {
             continue;
         }
-        let mut new_instructions: Vec<&str> = instructions.to_owned();
-        let new_ins;
-        if op == "nop" {
-            new_ins = format!("jmp{}", &ins[3..]);
-            new_instructions[index] = &new_ins;
-        } else if op == "jmp" {
-            new_ins = format!("nop{}", &ins[3..]);
-            new_instructions[index] = &new_ins;
+        let orig_type = ins.i_type;
+        if ins.i_type == InstructionType::NOP {
+            instructions[index].i_type = InstructionType::JMP;
+        } else if ins.i_type == InstructionType::JMP {
+            instructions[index].i_type = InstructionType::NOP;
         }
-        let (term, acc) = run_program(&new_instructions);
+        let (term, acc) = run_program(&instructions);
         if term {
             return (term, acc);
         }
+
+        // reset change
+        instructions[index].i_type = orig_type;
     }
     (false, 0)
 }
 
+fn read_program(input: &str) -> Vec<Instruction> {
+    input
+        .lines()
+        .map(|ins| Instruction {
+            i_type: match &ins[0..3] {
+                "nop" => InstructionType::NOP,
+                "acc" => InstructionType::ACC,
+                "jmp" => InstructionType::JMP,
+                _ => InstructionType::INVALID,
+            },
+            arg: ins[4..].parse::<i32>().expect("could not parse argument"),
+        })
+        .collect()
+}
+
 pub fn main() {
     let input = read_to_string("inputs/day8.txt").unwrap();
+    let program = read_program(&input);
 
     // PART 1
     let start = Instant::now();
     let known_answer = "1801";
-    let (_, part_1): (bool, i32) = run_program(&input.lines().collect::<Vec<&str>>());
+    let (_, part_1): (bool, i32) = run_program(&program);
     let duration = start.elapsed();
     print_part_1(&part_1.to_string(), &known_answer, duration);
 
     // PART 2
     let start = Instant::now();
     let known_answer = "2060";
-    let (_, part_2): (bool, i32) = make_program_terminate(&input.lines().collect::<Vec<&str>>());
+    let (_, part_2): (bool, i32) = make_program_terminate(&program);
     let duration = start.elapsed();
     print_part_2(&part_2.to_string(), &known_answer, duration);
 }
@@ -104,15 +132,14 @@ mod tests {
     #[test]
     fn test_example_loop() {
         let input: &str = "nop +0\nacc +1\njmp +4\nacc +3\njmp -3\nacc -99\nacc +1\njmp -4\nacc +6";
-        let (terminated, acc): (bool, i32) = run_program(&input.lines().collect::<Vec<&str>>());
+        let (terminated, acc): (bool, i32) = run_program(&read_program(input));
         assert_eq!(terminated, false);
         assert_eq!(acc, 5);
     }
     #[test]
     fn test_example_terminate() {
         let input: &str = "nop +0\nacc +1\njmp +4\nacc +3\njmp -3\nacc -99\nacc +1\njmp -4\nacc +6";
-        let (terminated, acc): (bool, i32) =
-            make_program_terminate(&input.lines().collect::<Vec<&str>>());
+        let (terminated, acc): (bool, i32) = make_program_terminate(&read_program(input));
         assert_eq!(terminated, true);
         assert_eq!(acc, 8);
     }
