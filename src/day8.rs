@@ -84,27 +84,17 @@ pub fn main() {
 
     // PART 1
     let start = Instant::now();
-    let known_answer: i32 = 1801;
+    let known_answer = "1801";
     let (_, part_1): (bool, i32) = run_program(&input.lines().collect::<Vec<&str>>());
     let duration = start.elapsed();
-    if part_1 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 1: {}", part_1);
-    println!("\t[{:?}]", duration);
-    // print_part_1(part_1, known_answer, duration);
+    print_part_1(&part_1.to_string(), &known_answer, duration);
 
     // PART 2
     let start = Instant::now();
-    let known_answer: i32 = 2060;
+    let known_answer = "2060";
     let (_, part_2): (bool, i32) = make_program_terminate(&input.lines().collect::<Vec<&str>>());
     let duration = start.elapsed();
-    if part_2 != known_answer {
-        print!("INCORRECT || ")
-    }
-    println!("PART 2: {}", part_2);
-    println!("\t[{:?}]", duration);
-    // print_part_2(part_2, known_answer, duration);
+    print_part_2(&part_2.to_string(), &known_answer, duration);
 }
 
 #[cfg(test)]

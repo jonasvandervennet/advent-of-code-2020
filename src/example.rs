@@ -57,17 +57,17 @@ pub fn main() {
     };
     // PART 1
     let start = Instant::now();
-    let known_answer = 3330521;
+    let known_answer = "3330521";
     let part_1: usize = input.iter().map(|&i| calculate_fuel(i)).sum();
     let duration = start.elapsed();
-    print_part_1(part_1, known_answer, duration);
+    print_part_1(&part_1.to_string(), known_answer, duration);
 
     // PART 2
-    let known_answer = 4992931;
+    let known_answer = "4992931";
     let start = Instant::now();
     let part_2: usize = input.iter().map(|&i| recurse_fuel(i)).sum();
     let duration = start.elapsed();
-    print_part_2(part_2, known_answer, duration);
+    print_part_2(&part_2.to_string(), known_answer, duration);
 }
 
 #[cfg(test)]

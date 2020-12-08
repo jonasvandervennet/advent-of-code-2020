@@ -12,7 +12,7 @@ where
     Ok(io::BufReader::new(file).lines())
 }
 
-fn print_answer(part_nr: usize, answer: usize, known_answer: usize, duration: Duration) {
+fn print_answer(part_nr: usize, answer: &str, known_answer: &str, duration: Duration) {
     if answer != known_answer {
         print!("INCORRECT || ")
     }
@@ -20,9 +20,9 @@ fn print_answer(part_nr: usize, answer: usize, known_answer: usize, duration: Du
     println!("\t[{:?}]", duration);
 }
 
-pub fn print_part_1(answer: usize, known_answer: usize, duration: Duration) {
+pub fn print_part_1(answer: &str, known_answer: &str, duration: Duration) {
     print_answer(1, answer, known_answer, duration);
 }
-pub fn print_part_2(answer: usize, known_answer: usize, duration: Duration) {
+pub fn print_part_2(answer: &str, known_answer: &str, duration: Duration) {
     print_answer(2, answer, known_answer, duration);
 }

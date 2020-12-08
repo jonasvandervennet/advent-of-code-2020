@@ -58,20 +58,20 @@ pub fn main() {
     };
     // PART 1
     let start = Instant::now();
-    let known_answer: usize = 319531;
+    let known_answer = "319531";
     let part_1: usize = {
         let values = get_2_values_with_sum_2020(&input);
         values.0 * values.1
     };
     let duration = start.elapsed();
-    print_part_1(part_1, known_answer, duration);
+    print_part_1(&part_1.to_string(), &known_answer, duration);
 
     // PART 2
     let start = Instant::now();
-    let known_answer: usize = 244300320;
+    let known_answer = "244300320";
     let part_2: usize = get_3_values_with_sum_2020(&input);
     let duration = start.elapsed();
-    print_part_2(part_2, known_answer, duration);
+    print_part_2(&part_2.to_string(), &known_answer, duration);
 }
 
 #[cfg(test)]

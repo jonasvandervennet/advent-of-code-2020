@@ -37,23 +37,23 @@ pub fn main() {
 
     // PART 1
     let start = Instant::now();
-    let known_answer: usize = 6930;
+    let known_answer = "6930";
     let part_1: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line_group| get_unique_chars(line_group).len())
         .sum();
     let duration = start.elapsed();
-    print_part_1(part_1, known_answer, duration);
+    print_part_1(&part_1.to_string(), &known_answer, duration);
 
     // PART 2
     let start = Instant::now();
-    let known_answer: usize = 3585;
+    let known_answer = "3585";
     let part_2: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line_group| count_common_chars(line_group))
         .sum();
     let duration = start.elapsed();
-    print_part_2(part_2, known_answer, duration);
+    print_part_2(&part_2.to_string(), &known_answer, duration);
 }
 
 #[cfg(test)]

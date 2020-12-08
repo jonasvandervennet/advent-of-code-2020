@@ -116,17 +116,17 @@ pub fn main() {
 
     // PART 1
     let start = Instant::now();
-    let known_answer: usize = 226;
+    let known_answer = "226";
     let part_1: usize = get_shiny_gold_options(&input);
     let duration = start.elapsed();
-    print_part_1(part_1, known_answer, duration);
+    print_part_1(&part_1.to_string(), &known_answer, duration);
 
     // PART 2
     let start = Instant::now();
-    let known_answer: usize = 3585;
+    let known_answer = "3585";
     let part_2: usize = get_total_bags_in_shiny_gold(&input);
     let duration = start.elapsed();
-    print_part_2(part_2, known_answer, duration);
+    print_part_2(&part_2.to_string(), &known_answer, duration);
 }
 
 #[cfg(test)]

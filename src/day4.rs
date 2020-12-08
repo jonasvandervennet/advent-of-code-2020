@@ -78,23 +78,23 @@ pub fn main() {
 
     // PART 1
     let start = Instant::now();
-    let known_answer: usize = 264;
+    let known_answer = "264";
     let part_1: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line| if verify_password(line, false) { 1 } else { 0 })
         .sum();
     let duration = start.elapsed();
-    print_part_1(part_1, known_answer, duration);
+    print_part_1(&part_1.to_string(), &known_answer, duration);
 
     // PART 2
     let start = Instant::now();
-    let known_answer: usize = 224;
+    let known_answer = "224";
     let part_2: usize = input
         .split("\r\n\r\n") // empty lines (this probably depends on the operating system..)
         .map(|line| if verify_password(line, true) { 1 } else { 0 })
         .sum();
     let duration = start.elapsed();
-    print_part_2(part_2, known_answer, duration);
+    print_part_2(&part_2.to_string(), &known_answer, duration);
 }
 
 #[cfg(test)]
