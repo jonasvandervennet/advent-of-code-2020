@@ -1,38 +1,34 @@
 use crate::util::{print_part_1, print_part_2};
-use std::collections::HashMap;
 use std::time::Instant;
 
 fn play_repeat(input: &str, goal_iterations: usize) -> usize {
-    let mut spoken_numbers_history: HashMap<usize, usize> = HashMap::new();
-
     let mut num_spoken = 0;
     let mut last_num = 0;
     let mut last_num_new = true;
     let mut age = 0;
 
+    let mut spoken_numbers_history = vec![0; goal_iterations];
+
     for n in input.split(",") {
         let n = n.parse::<usize>().unwrap();
 
-        spoken_numbers_history.insert(n, num_spoken + 1);
+        spoken_numbers_history[n] = num_spoken + 1;
         num_spoken += 1;
-        last_num = n;
     }
 
     while num_spoken != goal_iterations {
-        if last_num_new {
+        last_num = if last_num_new {
             // say 0
-            last_num = 0;
+            0
         } else {
             // use age
-            last_num = num_spoken - age;
+            num_spoken - age
+        };
+        last_num_new = spoken_numbers_history[last_num] == 0;
+        if !last_num_new {
+            age = spoken_numbers_history[last_num];
         }
-        match spoken_numbers_history.insert(last_num, num_spoken + 1) {
-            None => last_num_new = true,
-            Some(n) => {
-                age = n;
-                last_num_new = false;
-            }
-        }
+        spoken_numbers_history[last_num] = num_spoken + 1;
         num_spoken += 1;
     }
     last_num
