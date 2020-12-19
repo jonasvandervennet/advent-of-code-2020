@@ -33,7 +33,7 @@ fn count_common_chars(answers: &str) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day6.txt").unwrap();
+    let input = read_to_string("inputs/day6.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

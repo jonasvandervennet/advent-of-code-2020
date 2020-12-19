@@ -86,7 +86,7 @@ fn follow_path_2(input: &str) -> i64 {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day12.txt").unwrap();
+    let input = read_to_string("inputs/day12.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

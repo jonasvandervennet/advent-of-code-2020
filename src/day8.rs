@@ -107,7 +107,7 @@ fn read_program(input: &str) -> Vec<Instruction> {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day8.txt").unwrap();
+    let input = read_to_string("inputs/day8.txt").expect("Input not found..");
     let program = read_program(&input);
 
     // PART 1

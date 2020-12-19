@@ -102,7 +102,7 @@ fn sum_memory_2(input: &str) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day14.txt").unwrap();
+    let input = read_to_string("inputs/day14.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

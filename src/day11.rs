@@ -190,7 +190,7 @@ fn iterate_until_stable(seats: &mut Grid) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day11.txt").unwrap();
+    let input = read_to_string("inputs/day11.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

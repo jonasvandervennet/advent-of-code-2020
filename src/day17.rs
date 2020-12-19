@@ -60,7 +60,7 @@ fn booting_sequence(input: &str, dim: usize) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day17.txt").unwrap();
+    let input = read_to_string("inputs/day17.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

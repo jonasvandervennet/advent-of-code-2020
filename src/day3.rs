@@ -22,7 +22,7 @@ fn count_trees_slope(map: &str, right: usize, down: usize) -> usize {
 }
 
 pub fn main() {
-    let map = read_to_string("inputs/day3.txt").unwrap();
+    let map = read_to_string("inputs/day3.txt").expect("Input not found..");
     // PART 1
     let start = Instant::now();
     let known_answer = "252";

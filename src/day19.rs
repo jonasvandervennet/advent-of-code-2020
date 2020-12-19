@@ -125,7 +125,7 @@ fn validate_rules(input: &str, part: usize) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day19.txt").unwrap();
+    let input = read_to_string("inputs/day19.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();
@@ -146,7 +146,6 @@ pub fn main() {
 mod tests {
     use super::*;
 
-
     #[test]
     fn test_example_1() {
         let input: &str =
@@ -157,14 +156,14 @@ mod tests {
 
     #[test]
     fn test_example_2() {
-        let input = read_to_string("inputs/day19_test.txt").unwrap();
+        let input = read_to_string("inputs/day19_test.txt").expect("Input not found..");
         let answer: usize = validate_rules(&input, 1);
         assert_eq!(answer, 3);
     }
 
     #[test]
     fn test_example_3() {
-        let input = read_to_string("inputs/day19_test.txt").unwrap();
+        let input = read_to_string("inputs/day19_test.txt").expect("Input not found..");
         let answer: usize = validate_rules(&input, 2);
         assert_eq!(answer, 12);
     }

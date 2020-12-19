@@ -74,7 +74,7 @@ fn verify_password(pass: &str, verify_value: bool) -> bool {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day4.txt").unwrap();
+    let input = read_to_string("inputs/day4.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

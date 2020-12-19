@@ -112,7 +112,7 @@ fn get_total_bags_in_shiny_gold(lines: &str) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day7.txt").unwrap();
+    let input = read_to_string("inputs/day7.txt").expect("Input not found..");
 
     // PART 1
     let start = Instant::now();

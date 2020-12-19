@@ -51,7 +51,7 @@ fn verify_password_part2(input: &str) -> bool {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day2.txt").unwrap();
+    let input = read_to_string("inputs/day2.txt").expect("Input not found..");
     // PART 1
     let start = Instant::now();
     let known_answer = "666";

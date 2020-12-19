@@ -56,7 +56,7 @@ fn num_arrangements(input: &Vec<usize>) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day10.txt").unwrap();
+    let input = read_to_string("inputs/day10.txt").expect("Input not found..");
     let input: Vec<usize> = input
         .lines()
         .map(|line| line.parse::<usize>().expect("Could not decode input.."))

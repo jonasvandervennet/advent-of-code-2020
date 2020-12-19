@@ -37,7 +37,7 @@ fn get_missing_seat_id(seat_ids: Vec<usize>) -> usize {
 }
 
 pub fn main() {
-    let input = read_to_string("inputs/day5.txt").unwrap();
+    let input = read_to_string("inputs/day5.txt").expect("Input not found..");
     let mut seat_ids: Vec<usize> = input.lines().map(|line| seat_id(line)).collect();
 
     // PART 1
