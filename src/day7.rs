@@ -123,7 +123,7 @@ pub fn main() {
 
     // PART 2
     let start = Instant::now();
-    let known_answer = "3585";
+    let known_answer = "9569";
     let part_2: usize = get_total_bags_in_shiny_gold(&input);
     let duration = start.elapsed();
     print_part_2(&part_2.to_string(), &known_answer, duration);
