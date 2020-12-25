@@ -19,7 +19,7 @@ fn match_allergens(input: &str, part: usize) -> String {
 
     let mut all_allergens = HashSet::new();
     let mut ingredient_usage = HashMap::new();
-    
+
     let mut fixed_allergens: Vec<String> = Vec::new();
 
     for line in input.lines() {
